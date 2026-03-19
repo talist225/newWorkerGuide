@@ -295,34 +295,198 @@
 
           <!-- Home Section -->
           <div id="home" class="content-section active">
-            <div class="hero min-h-[50vh] glass-panel rounded-3xl shadow-lg">
-              <div class="hero-content text-center">
-                <div class="max-w-md">
-                  <h1 class="text-5xl font-bold text-gray-800 mb-6">
-                    ברוכים הבאים למרכז המדריכים
-                  </h1>
-                  <h2 class="text-2xl font-semibold text-primary mb-4">
-                    מדריך לעובד מתחיל ומרכז ידע
-                  </h2>
-                  <p class="py-2 text-lg">
-                    כאן תוכלו למצוא את כל המידע הדרוש לתפעול המערכת, נהלי עבודה
-                    ופתרונות לבעיות נפוצות.
-                  </p>
-                  <p class="py-4 text-lg">
-                    <strong>עובד חדש?</strong> מערכת זו משמשת כמדריך חפיפה. עליך
-                    לעבור על המדריכים לפי הסדר, ובסיום כל שלב לסמן בתיבת הסימון
-                    (Checkbox) בתחתית העמוד שקראת והבנת את התוכן.
-                  </p>
-                  <button
-                    class="btn btn-primary btn-lg shadow-lg shadow-primary/40"
-                    onclick="showSection('install')"
-                  >
-                    התחל כאן <i class="fa-solid fa-arrow-left mr-2"></i>
+
+            <!-- Hero Banner -->
+            <div class="glass-panel rounded-3xl shadow-lg p-8 mb-8 text-center relative overflow-hidden">
+              <div class="absolute inset-0 opacity-5" style="background: radial-gradient(circle at 30% 50%, #E5007D 0%, transparent 60%), radial-gradient(circle at 70% 50%, #E5007D 0%, transparent 60%);"></div>
+              <div class="relative z-10">
+                <div class="flex justify-center mb-4">
+                  <img src="https://mobile.rami-levy.co.il/static/dist/assets/logo.D2JtpVoS.svg?2021" alt="לוגו" class="h-14 w-auto" />
+                </div>
+                <h1 class="text-4xl lg:text-5xl font-bold text-gray-800 mb-3">ברוכים הבאים למרכז המדריכים</h1>
+                <p class="text-xl text-primary font-semibold">רמי לוי תקשורת — מרכז ידע ומדריך חפיפה</p>
+              </div>
+            </div>
+
+            <!-- Two Columns -->
+            <div class="flex flex-col lg:flex-row glass-panel rounded-3xl shadow-lg overflow-hidden mb-8">
+
+              <!-- עובד קיים -->
+              <div class="flex-1 p-8 flex flex-col">
+                <div class="flex items-center gap-3 mb-5">
+                  <div class="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <i class="fa-solid fa-briefcase text-primary text-xl"></i>
+                  </div>
+                  <h2 class="text-2xl font-bold text-gray-800">עובד קיים — מרכז ידע</h2>
+                </div>
+                <p class="text-gray-600 text-lg mb-6 leading-relaxed">
+                  כאן תמצאו את כל המידע הדרוש לתפעול השוטף — נהלי עבודה, מדריכים מקיפים לכל המערכות ופתרונות לבעיות נפוצות.
+                </p>
+                <div class="grid grid-cols-1 gap-3 mb-6">
+                  <div class="flex items-center gap-3 bg-base-200/60 rounded-xl p-3">
+                    <i class="fa-solid fa-globe text-primary w-5 text-center"></i>
+                    <span class="font-semibold">אתר רמי לוי תקשורת</span>
+                    <span class="text-gray-500 text-sm">— הזמנות, חוזים, פריפייד ועוד</span>
+                  </div>
+                  <div class="flex items-center gap-3 bg-base-200/60 rounded-xl p-3">
+                    <i class="fa-solid fa-brain text-primary w-5 text-center"></i>
+                    <span class="font-semibold">MIND</span>
+                    <span class="text-gray-500 text-sm">— ניהול תיקיות לקוח ומנויים</span>
+                  </div>
+                  <div class="flex items-center gap-3 bg-base-200/60 rounded-xl p-3">
+                    <i class="fa-solid fa-headset text-primary w-5 text-center"></i>
+                    <span class="font-semibold">RLT</span>
+                    <span class="text-gray-500 text-sm">— מערכת ניהול פניות</span>
+                  </div>
+                </div>
+                <!-- <div class="mt-auto">
+                  <button class="btn btn-outline btn-primary w-full" onclick="document.getElementById('searchInput').focus()">
+                    <i class="fa-solid fa-search me-2"></i> חפש מדריך
+                  </button>
+                </div> -->
+              </div>
+
+              <!-- Divider -->
+              <div class="divider lg:divider-horizontal m-0"></div>
+
+              <!-- עובד חדש -->
+              <div class="flex-1 p-8 flex flex-col">
+                <div class="flex items-center gap-3 mb-5">
+                  <div class="w-12 h-12 rounded-2xl bg-success/10 flex items-center justify-center flex-shrink-0">
+                    <i class="fa-solid fa-star text-success text-xl"></i>
+                  </div>
+                  <h2 class="text-2xl font-bold text-gray-800">עובד חדש — מדריך חפיפה</h2>
+                </div>
+                <p class="text-gray-600 text-lg mb-4 leading-relaxed">
+                  מערכת זו משמשת כמדריך חפיפה מלא. עליך לעבור על המדריכים לפי הסדר, ובסיום כל שלב לסמן בתיבת הסימון בתחתית העמוד שקראת והבנת את התוכן.
+                </p>
+                <div class="alert alert-info shadow-sm bg-blue-50 border-blue-100 text-blue-800 mb-6 text-sm">
+                  <i class="fa-solid fa-circle-info"></i>
+                  <span>ההתקדמות שלך נשמרת אוטומטית בדפדפן — תוכל להמשיך מאיפה שעצרת בכל כניסה.</span>
+                </div>
+                <div class="space-y-3 mb-6">
+                  <div class="flex items-start gap-3">
+                    <div class="w-7 h-7 rounded-full bg-primary text-white flex items-center justify-center text-sm font-bold flex-shrink-0 mt-0.5">1</div>
+                    <p class="text-gray-700">עבור על המדריכים <strong>לפי הסדר</strong> בתפריט הצד</p>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <div class="w-7 h-7 rounded-full bg-primary text-white flex items-center justify-center text-sm font-bold flex-shrink-0 mt-0.5">2</div>
+                    <p class="text-gray-700">בסיום כל מדריך — <strong>סמן את תיבת הסימון</strong> בתחתית</p>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <div class="w-7 h-7 rounded-full bg-primary text-white flex items-center justify-center text-sm font-bold flex-shrink-0 mt-0.5">3</div>
+                    <p class="text-gray-700">עקוב אחר <strong>סרגל ההתקדמות</strong> בתחתית התפריט</p>
+                  </div>
+                </div>
+                <div class="mt-auto flex flex-col gap-3">
+                  <button class="btn  w-full shadow-lg" onclick="showSection('rl-tools-env')" style="background-color: #fc40b2; color: white;">
+                    התחל כאן <i class="fa-solid fa-arrow-left me-2"></i>
+                  </button>
+                  <button class="btn btn-outline btn-success w-full" onclick="showSection('my-progress')">
+                    <i class="fa-solid fa-list-check me-2"></i> עקוב אחר ההתקדמות שלי
                   </button>
                 </div>
               </div>
             </div>
+
           </div>
+
+          <!-- My Progress Section -->
+          <div id="my-progress" class="content-section">
+            <div class="card bg-base-100/80 backdrop-blur-md shadow-xl">
+              <div class="card-body">
+                <div class="flex items-center justify-between mb-6 border-b-2 border-primary/10 pb-3">
+                  <h2 class="card-title text-3xl text-primary">ההתקדמות שלי — מדריך חפיפה</h2>
+                  <button class="btn btn-ghost btn-sm" onclick="renderProgressPage()">
+                    <i class="fa-solid fa-rotate-right"></i> רענן
+                  </button>
+                </div>
+
+                <!-- Summary bar -->
+                <div class="glass-panel rounded-2xl p-5 mb-6 flex flex-col sm:flex-row items-center gap-6">
+                  <div class="flex gap-6 text-center">
+                    <div>
+                      <div class="text-3xl font-bold text-primary" id="prog-total">0</div>
+                      <div class="text-sm text-gray-500">סה"כ</div>
+                    </div>
+                    <div>
+                      <div class="text-3xl font-bold text-success" id="prog-read">0</div>
+                      <div class="text-sm text-gray-500">הושלמו</div>
+                    </div>
+                    <div>
+                      <div class="text-3xl font-bold text-warning" id="prog-left">0</div>
+                      <div class="text-sm text-gray-500">נותרו</div>
+                    </div>
+                  </div>
+                  <div class="flex-1 w-full">
+                    <div class="flex justify-between text-sm mb-1">
+                      <span class="font-semibold text-gray-600">התקדמות כוללת</span>
+                      <span class="font-bold text-primary" id="prog-pct">0%</span>
+                    </div>
+                    <progress class="progress progress-primary w-full" id="prog-bar" value="0" max="100"></progress>
+                  </div>
+                </div>
+
+                <!-- Guide list by category -->
+                <div id="progress-list" class="space-y-6"></div>
+
+              </div>
+            </div>
+          </div>
+
+          <script>
+            function renderProgressPage() {
+              if (!window.guides) return;
+              const total = window.guides.length;
+              let read = 0;
+              window.guides.forEach(g => { if (localStorage.getItem('read_' + g.id) === 'true') read++; });
+              const pct = total === 0 ? 0 : Math.round((read / total) * 100);
+              const set = (id, v) => { const e = document.getElementById(id); if (e) e.textContent = v; };
+              set('prog-total', total); set('prog-read', read); set('prog-left', total - read); set('prog-pct', pct + '%');
+              const bar = document.getElementById('prog-bar'); if (bar) bar.value = pct;
+
+              // Group by category
+              const cats = {};
+              window.guides.forEach(g => { if (!cats[g.category]) cats[g.category] = []; cats[g.category].push(g); });
+
+              const container = document.getElementById('progress-list');
+              if (!container) return;
+              container.innerHTML = '';
+              Object.entries(cats).forEach(([cat, items]) => {
+                const catRead = items.filter(g => localStorage.getItem('read_' + g.id) === 'true').length;
+                const allDone = catRead === items.length;
+                const section = document.createElement('div');
+                section.className = 'glass-panel rounded-2xl p-5';
+                section.innerHTML = `
+                  <div class="flex items-center justify-between mb-3">
+                    <h3 class="font-bold text-lg text-gray-800 flex items-center gap-2">
+                      <i class="fa-solid fa-folder${allDone ? '-open text-success' : ' text-primary'}"></i>
+                      ${cat}
+                    </h3>
+                    <span class="badge ${allDone ? 'badge-success' : 'badge-ghost'}">${catRead}/${items.length}</span>
+                  </div>
+                  <div class="space-y-2">
+                    ${items.map(g => {
+                      const isRead = localStorage.getItem('read_' + g.id) === 'true';
+                      return `<div class="flex items-center gap-3 p-3 rounded-xl ${isRead ? 'bg-success/10' : 'bg-base-200/60'} cursor-pointer hover:opacity-80 transition-opacity" onclick="showSection('${g.id}')">
+                        <i class="fa-solid ${isRead ? 'fa-circle-check text-success' : 'fa-circle text-gray-300'} text-lg flex-shrink-0"></i>
+                        <span class="font-medium ${isRead ? 'text-success' : 'text-gray-700'}">${g.title}</span>
+                        <i class="fa-solid fa-arrow-left text-gray-400 text-xs mr-auto"></i>
+                      </div>`;
+                    }).join('')}
+                  </div>`;
+                container.appendChild(section);
+              });
+            }
+
+            // Re-render when a checkbox changes
+            document.addEventListener('change', function(e) {
+              if (e.target && e.target.classList.contains('mark-read-checkbox')) {
+                setTimeout(renderProgressPage, 50);
+              }
+            });
+            window.addEventListener('load', renderProgressPage);
+          </script>
 
           <!-- Category View Template -->
           <div id="category-view" class="content-section">
@@ -5011,6 +5175,12 @@
             class="menu p-4 w-full text-base font-medium sidebar"
             id="sidebarMenu"
           >
+            <li class="mb-3">
+              <a onclick="showSection('home')" class="btn btn-sm w-full flex items-center gap-2 justify-center" style="background-color: #fc40b2; color: white;">
+                <i class="fa-solid fa-house"></i>
+                דף ראשי
+              </a>
+            </li>
             <li class="menu-title text-gray-400 uppercase tracking-wider mb-2">
               נושאים ראשיים
             </li>
@@ -5939,7 +6109,8 @@
 
         // Update Breadcrumbs
         const breadcrumbNav = document.getElementById("mainBreadcrumb");
-        if (sectionId === "home" || sectionId === "category-view") {
+        if (sectionId === "home" || sectionId === "category-view" || sectionId === "my-progress") {
+          if (sectionId === "my-progress") setTimeout(renderProgressPage, 50);
           breadcrumbNav.classList.add("hidden");
         } else {
           const guide = guides.find((g) => g.id === sectionId);
@@ -6182,7 +6353,7 @@
         tocList.innerHTML = "";
 
         // Hide TOC for specific sections
-        if (!section || sectionId === "home" || sectionId === "category-view") {
+        if (!section || sectionId === "home" || sectionId === "category-view" || sectionId === "my-progress") {
           tocContainer.classList.remove("opacity-100", "pointer-events-auto");
           tocContainer.classList.add("opacity-0", "pointer-events-none");
           return;
