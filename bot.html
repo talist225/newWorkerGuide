@@ -35,9 +35,30 @@
     </script>
 
     <style>
+      html,
+      html[data-theme],
+      html[data-theme="light"],
+      html[data-theme="dark"],
       body {
+        background: transparent !important;
         background-color: transparent !important;
-        overflow: hidden; /* מונע גלילה של ה-iframe עצמו */
+        overflow: hidden;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      /* Override every possible DaisyUI/Tailwind background source */
+      :root {
+        --b1: transparent !important;
+        background: transparent !important;
+        background-color: transparent !important;
+      }
+
+      [data-theme],
+      [data-theme="light"],
+      [data-theme="dark"] {
+        background: transparent !important;
+        background-color: transparent !important;
       }
 
       /* Glass Panel for Chat Window */
@@ -65,6 +86,7 @@
         justify-content: flex-end;
         padding: 1rem;
         box-sizing: border-box;
+        background: transparent;
       }
 
       .chat-window {
@@ -112,11 +134,26 @@
     </style>
   </head>
   <body>
+    <script>
+      // Strip any theme/background from html+body immediately
+      var _h = document.documentElement;
+      var _b = document.body || document.getElementsByTagName('body')[0];
+      _h.removeAttribute('data-theme');
+      _h.style.cssText += ';background:transparent!important;background-color:transparent!important;';
+      if (_b) _b.style.cssText += ';background:transparent!important;background-color:transparent!important;';
+      // Re-apply after any framework sets it
+      var _obs = new MutationObserver(function() {
+        _h.style.cssText += ';background:transparent!important;background-color:transparent!important;';
+      });
+      _obs.observe(_h, { attributes: true, attributeFilter: ['data-theme', 'style'] });
+      // Stop observing after 3 seconds
+      setTimeout(function() { _obs.disconnect(); }, 3000);
+    </script>
     <div class="chat-widget font-sans">
       <!-- Chat Window -->
       <div
         id="chat-window"
-        class="chat-window bg-base-100 shadow-2xl rounded-2xl border border-base-300 overflow-hidden glass-panel transition-all duration-300 origin-bottom-left transform scale-95 opacity-0"
+        class="chat-window shadow-2xl rounded-2xl border border-base-300 overflow-hidden glass-panel transition-all duration-300 origin-bottom-left transform scale-95 opacity-0"
       >
         <!-- Header -->
         <div
@@ -667,5 +704,13 @@
         return { text: response };
       }
     </script>
+
+    <!-- Final transparent override - must be last -->
+    <style>
+      html, body, html[data-theme], html[data-theme="light"], html[data-theme="dark"] {
+        background: transparent !important;
+        background-color: transparent !important;
+      }
+    </style>
   </body>
 </html>
