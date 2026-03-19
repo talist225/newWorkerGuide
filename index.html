@@ -319,9 +319,10 @@
                   </div>
                   <h2 class="text-2xl font-bold text-gray-800">עובד קיים — מרכז ידע</h2>
                 </div>
-                <p class="text-gray-600 text-lg mb-6 leading-relaxed">
+                <p class="text-gray-600 text-lg leading-relaxed">
                   כאן תמצאו את כל המידע הדרוש לתפעול השוטף — נהלי עבודה, מדריכים מקיפים לכל המערכות ופתרונות לבעיות נפוצות.
                 </p>
+              
                 <div class="grid grid-cols-1 gap-3 mb-6">
                   <div class="flex items-center gap-3 bg-base-200/60 rounded-xl p-3">
                     <i class="fa-solid fa-globe text-primary w-5 text-center"></i>
@@ -338,6 +339,7 @@
                     <span class="font-semibold">RLT</span>
                     <span class="text-gray-500 text-sm">— מערכת ניהול פניות</span>
                   </div>
+                    <p class="text-gray-600 text-xl mt-6 leading-relaxed text-center"><strong>ניתן להשתמש בשדה החיפוש בתפריט העליון</strong></p>
                 </div>
                 <!-- <div class="mt-auto">
                   <button class="btn btn-outline btn-primary w-full" onclick="document.getElementById('searchInput').focus()">
@@ -486,6 +488,26 @@
               }
             });
             window.addEventListener('load', renderProgressPage);
+          </script>
+
+          <script>
+            function injectNextGuideButtons() {
+              if (!window.guides) return;
+              window.guides.forEach(function(guide, index) {
+                if (index >= window.guides.length - 1) return;
+                var nextGuide = window.guides[index + 1];
+                var section = document.getElementById(guide.id);
+                if (!section) return;
+                var formControl = section.querySelector('[class*="form-control"][class*="bg-secondary"]');
+                if (!formControl) return;
+                var btn = document.createElement('div');
+                btn.className = 'mt-4';
+                btn.innerHTML = '<button onclick="showSection(\'' + nextGuide.id + '\')" class="w-full text-lg font-semibold py-4 rounded-xl flex items-center justify-center gap-3" style="background-color:#fc40b2;color:white;"><i class="fa-solid fa-arrow-left"></i> המדריך הבא: ' + nextGuide.title + '</button>';
+                formControl.parentNode.insertBefore(btn, formControl.nextSibling);
+              });
+            }
+            // Called after window.guides is defined (see script below)
+            window._injectNextGuideButtons = injectNextGuideButtons;
           </script>
 
           <!-- Category View Template -->
@@ -6236,6 +6258,7 @@
 
       // Load saved state on page load
       window.addEventListener("load", () => {
+        if (window._injectNextGuideButtons) window._injectNextGuideButtons();
         // Generate sections for all guides
         generateGuideSections();
 
