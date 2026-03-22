@@ -131,23 +131,116 @@
       #chat-messages::-webkit-scrollbar-thumb:hover {
         background: rgba(229, 0, 125, 0.5);
       }
+
+      /* בועת בוט (ורוד) — כפתורי מדריך: רקע בהיר + טקסט שחור (קריא לעין) */
+      #chat-messages .chat-bubble-primary .chat-action-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        margin-top: 0.5rem;
+        padding: 0.45rem 0.95rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+        line-height: 1.2;
+        color: #0a0a0a !important;
+        background: #ffffff !important;
+        border: 1px solid rgba(0, 0, 0, 0.1) !important;
+        border-radius: 0.65rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        cursor: pointer;
+        transition:
+          background 0.15s ease,
+          color 0.15s ease,
+          box-shadow 0.15s ease;
+      }
+      #chat-messages .chat-bubble-primary .chat-action-btn i,
+      #chat-messages .chat-bubble-primary .chat-action-btn .fa-solid {
+        color: #0a0a0a !important;
+      }
+      #chat-messages .chat-bubble-primary .chat-action-btn:hover {
+        background: #f3f3f3 !important;
+        color: #000000 !important;
+        border-color: rgba(0, 0, 0, 0.14) !important;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+      }
+      #chat-messages .chat-bubble-primary .chat-action-btn:hover i,
+      #chat-messages .chat-bubble-primary .chat-action-btn:hover .fa-solid {
+        color: #000000 !important;
+      }
+      #chat-messages .chat-bubble-primary .chat-action-btn-sm {
+        padding: 0.2rem 0.55rem;
+        font-size: 0.72rem;
+        margin-top: 0;
+        margin-inline-start: 0.25rem;
+        vertical-align: middle;
+      }
+      /* גיבוי: כפתורי Daisy ישנים / היסטוריה בתוך בועת בוט */
+      #chat-messages .chat-bubble-primary button.btn {
+        color: #0a0a0a !important;
+        background-color: #ffffff !important;
+        border-color: rgba(0, 0, 0, 0.12) !important;
+      }
+      #chat-messages .chat-bubble-primary button.btn:hover {
+        color: #000000 !important;
+        background-color: #eeeeee !important;
+      }
+      #chat-messages .chat-bubble-primary a {
+        color: #0a0a0a !important;
+        text-decoration: underline;
+        font-weight: 600;
+      }
+      #chat-messages .chat-bubble-primary .chat-quote-snippet {
+        color: rgba(255, 255, 255, 0.98);
+        background: rgba(0, 0, 0, 0.16);
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        border-radius: 0.5rem;
+        padding: 0.55rem 0.7rem;
+        margin-top: 0.5rem;
+        line-height: 1.5;
+      }
+      #chat-messages .chat-bubble-primary strong {
+        color: #fff;
+        font-weight: 700;
+      }
+
+      /* צ'יפים מתחת לשדה הקלט — לא outline אפור עם טקסט לבן */
+      #quick-suggestions .btn {
+        border-color: rgba(229, 0, 125, 0.4) !important;
+        color: #9d0a55 !important;
+        background: rgba(255, 255, 255, 0.98) !important;
+        font-weight: 500;
+      }
+      #quick-suggestions .btn:hover {
+        background: #e5007d !important;
+        color: #ffffff !important;
+        border-color: #e5007d !important;
+      }
     </style>
   </head>
   <body>
     <script>
       // Strip any theme/background from html+body immediately
       var _h = document.documentElement;
-      var _b = document.body || document.getElementsByTagName('body')[0];
-      _h.removeAttribute('data-theme');
-      _h.style.cssText += ';background:transparent!important;background-color:transparent!important;';
-      if (_b) _b.style.cssText += ';background:transparent!important;background-color:transparent!important;';
+      var _b = document.body || document.getElementsByTagName("body")[0];
+      _h.removeAttribute("data-theme");
+      _h.style.cssText +=
+        ";background:transparent!important;background-color:transparent!important;";
+      if (_b)
+        _b.style.cssText +=
+          ";background:transparent!important;background-color:transparent!important;";
       // Re-apply after any framework sets it
-      var _obs = new MutationObserver(function() {
-        _h.style.cssText += ';background:transparent!important;background-color:transparent!important;';
+      var _obs = new MutationObserver(function () {
+        _h.style.cssText +=
+          ";background:transparent!important;background-color:transparent!important;";
       });
-      _obs.observe(_h, { attributes: true, attributeFilter: ['data-theme', 'style'] });
+      _obs.observe(_h, {
+        attributes: true,
+        attributeFilter: ["data-theme", "style"],
+      });
       // Stop observing after 3 seconds
-      setTimeout(function() { _obs.disconnect(); }, 3000);
+      setTimeout(function () {
+        _obs.disconnect();
+      }, 3000);
     </script>
     <div class="chat-widget font-sans">
       <!-- Chat Window -->
@@ -162,16 +255,27 @@
           <div class="flex items-center gap-2">
             <i class="fa-solid fa-robot text-2xl"></i>
             <div>
-              <h3 class="font-bold text-lg leading-none">העוזר החכם</h3>
-              <span class="text-xs opacity-80">זמין לעזרה</span>
+              <h3 class="font-bold text-lg leading-none">מדריך חכם</h3>
+              <span class="text-xs opacity-80">מוצא מדריכים ומכוון אותך</span>
             </div>
           </div>
-          <button
-            onclick="toggleChat()"
-            class="btn btn-sm btn-circle btn-ghost text-white hover:bg-white/20"
-          >
-            <i class="fa-solid fa-times"></i>
-          </button>
+          <div class="flex items-center gap-1">
+            <button
+              type="button"
+              onclick="focusParentGuideSearch()"
+              class="btn btn-xs btn-ghost text-white hover:bg-white/20 gap-1 normal-case font-normal"
+              title="מעבר לחיפוש במדריכים בעמוד הראשי"
+            >
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <span class="hidden sm:inline">חיפוש במדריכים</span>
+            </button>
+            <button
+              onclick="toggleChat()"
+              class="btn btn-sm btn-circle btn-ghost text-white hover:bg-white/20"
+            >
+              <i class="fa-solid fa-times"></i>
+            </button>
+          </div>
         </div>
 
         <!-- Messages Area -->
@@ -193,14 +297,14 @@
               </div>
             </div>
             <div class="chat-bubble chat-bubble-primary">
-              היי! 👋 אני העוזר החכם של מרכז המדריכים.<br><br>
-              <strong>אני יכול לעזור לך:</strong><br>
-              ✓ למצוא מדריכים רלוונטיים<br>
-              ✓ להבין תהליכים ונהלים<br>
-              ✓ לפתור שגיאות ובעיות<br>
-              ✓ לענות על שאלות כלליות<br><br>
-              <small class="opacity-80">פשוט שאל אותי כל שאלה, לדוגמה:<br>
-              "איך עושים ניוד?" או "מה זה שגיאה 500?"</small>
+              היי! 👋 אני כאן כדי <strong>לנווט אותך במדריכים</strong> — אתר רמי
+              לוי, MIND ו־RLT.<br /><br />
+              תאר בעיה או מטרה (גם במילים חופשיות), ואני אחפש בכל התוכן, אציע
+              מדריך מתאים או כמה אפשרויות, ואשאל שאלות ממוקדות כשצריך להבהיר.<br /><br />
+              <small class="opacity-85"
+                >דוגמאות: «ניוד סים», «שגיאה בהזמנה», «איך פותחים פניה ב־RLT»,
+                «חבילת חו״ל לא נטענת»</small
+              >
             </div>
           </div>
         </div>
@@ -209,10 +313,40 @@
         <div class="p-3 bg-base-100 border-t border-base-300">
           <!-- Quick Suggestions -->
           <div id="quick-suggestions" class="mb-2 flex flex-wrap gap-1">
-            <button onclick="sendQuickMessage('איך עושים ניוד?')" class="btn btn-xs btn-outline">ניוד</button>
-            <button onclick="sendQuickMessage('איך מפעילים סים?')" class="btn btn-xs btn-outline">הפעלת סים</button>
-            <button onclick="sendQuickMessage('שגיאות נפוצות')" class="btn btn-xs btn-outline">שגיאות</button>
-            <button onclick="sendQuickMessage('חבילות חו\"ל')" class="btn btn-xs btn-outline">חו\"ל</button>
+            <button
+              type="button"
+              class="btn btn-xs btn-outline"
+              onclick="
+                sendQuickMessage('איך מבצעים ניוד או מעבירים מנוי בין תיקיות?')
+              "
+            >
+              ניוד / העברת מנוי
+            </button>
+            <button
+              type="button"
+              class="btn btn-xs btn-outline"
+              onclick="
+                sendQuickMessage('יש לי שגיאה או תקלה בהזמנה, איפה מטפלים?')
+              "
+            >
+              תקלה בהזמנה
+            </button>
+            <button
+              type="button"
+              class="btn btn-xs btn-outline"
+              onclick="
+                sendQuickMessage('איך עובדים עם פניות ב-RLT מפתיחה ועד סגירה?')
+              "
+            >
+              ניהול פניות RLT
+            </button>
+            <button
+              type="button"
+              class="btn btn-xs btn-outline"
+              onclick="sendQuickMessage('eSIM או החלפת סים — מה המדריך הנכון?')"
+            >
+              סים / eSIM
+            </button>
           </div>
           <div class="flex gap-2">
             <input
@@ -220,7 +354,7 @@
               id="chat-input"
               placeholder="כתוב הודעה..."
               class="input input-bordered w-full focus:outline-none focus:border-primary"
-              onkeypress="handleChatKey(event);"
+              onkeypress="handleChatKey(event)"
             />
             <button onclick="sendMessage()" class="btn btn-primary btn-square">
               <i class="fa-solid fa-paper-plane"></i>
@@ -239,475 +373,810 @@
     </div>
 
     <script>
-      const chatWindow = document.getElementById("chat-window");
-      const chatMessages = document.getElementById("chat-messages");
-      const chatInput = document.getElementById("chat-input");
-      let chatIndex = [];
+      (function () {
+        "use strict";
 
-      // גישה לחלון האב (index.html)
-      const parentWindow = window.parent;
-      const parentDoc = parentWindow.document;
+        const chatWindow = document.getElementById("chat-window");
+        const chatMessages = document.getElementById("chat-messages");
+        const chatInput = document.getElementById("chat-input");
+        const parentWindow = window.parent;
+        const parentDoc = parentWindow.document;
 
-      function initChatIndex() {
-        // בדיקה אם המידע קיים בחלון האב
-        if (!parentWindow.guides) {
-          console.warn("Guides data not found in parent window.");
-          return;
-        }
+        let chatIndex = [];
+        const SESSION_KEY = "guideBotClarifyV1";
 
-        // סריקת התוכן מתוך חלון האב
-        chatIndex = parentWindow.guides.map((guide) => {
-          const el = parentDoc.getElementById(guide.id);
-          const rawText = el ? el.innerText : "";
-          const searchableContent = rawText.replace(/\s+/g, " ").toLowerCase();
+        /** מילות עצירה עבריות + קישוריות */
+        const STOP = new Set([
+          "איך",
+          "כיצד",
+          "אני",
+          "את",
+          "אתה",
+          "אתם",
+          "שלי",
+          "שלך",
+          "שלו",
+          "יכול",
+          "לעשות",
+          "מה",
+          "זה",
+          "זו",
+          "אל",
+          "על",
+          "עם",
+          "או",
+          "גם",
+          "יש",
+          "אין",
+          "כל",
+          "כמו",
+          "אבל",
+          "רק",
+          "כי",
+          "ש",
+          "אם",
+          "כדי",
+          "ב",
+          "ל",
+          "ה",
+          "ו",
+          "מ",
+          "אל",
+          "עד",
+          "אפשר",
+          "צריך",
+          "רוצה",
+          "רוצים",
+          "נא",
+          "בבקשה",
+          "פשוט",
+          "עוד",
+          "כבר",
+          "גם",
+          "מאוד",
+          "יותר",
+          "פה",
+          "שם",
+        ]);
 
-          return {
-            id: guide.id,
-            title: guide.title,
-            category: guide.category,
-            content: searchableContent,
-            rawContent: rawText,
-            keywords: guide.title.split(" ").concat(guide.category.split(" ")),
-          };
-        });
-      }
-
-      // אתחול בטעינה
-      window.addEventListener("load", () => {
-        initChatIndex();
-        loadChatHistory();
-      });
-
-      function loadChatHistory() {
-        const history = localStorage.getItem("chatHistory");
-        if (history) {
-          try {
-            const messages = JSON.parse(history);
-            // Load last 5 messages only
-            const recentMessages = messages.slice(-5);
-            recentMessages.forEach(msg => {
-              addMessage(msg.text, msg.sender, msg.linkId, false);
-            });
-          } catch (e) {
-            console.error("Failed to load chat history", e);
-          }
-        }
-      }
-
-      function saveChatHistory(text, sender, linkId = null) {
-        try {
-          const history = localStorage.getItem("chatHistory");
-          const messages = history ? JSON.parse(history) : [];
-          messages.push({ text, sender, linkId, timestamp: Date.now() });
-          // Keep only last 20 messages
-          const recentMessages = messages.slice(-20);
-          localStorage.setItem("chatHistory", JSON.stringify(recentMessages));
-        } catch (e) {
-          console.error("Failed to save chat history", e);
-        }
-      }
-
-      function toggleChat() {
-        const iframe = parentDoc.getElementById("bot-iframe");
-
-        if (chatWindow.style.display === "flex") {
-          // סגירה
-          chatWindow.classList.remove("opacity-100", "scale-100");
-          chatWindow.classList.add("opacity-0", "scale-95");
-          setTimeout(() => {
-            chatWindow.style.display = "none";
-            // הקטנת ה-iframe לגודל הכפתור בלבד
-            if (iframe) {
-              iframe.style.width = "100px";
-              iframe.style.height = "100px";
-            }
-          }, 300);
-        } else {
-          // פתיחה
-          // הגדלת ה-iframe כדי להכיל את החלון
-          if (iframe) {
-            iframe.style.width = "400px";
-            iframe.style.height = "600px";
-          }
-
-          chatWindow.style.display = "flex";
-          setTimeout(() => {
-            chatWindow.classList.remove("opacity-0", "scale-95");
-            chatWindow.classList.add("opacity-100", "scale-100");
-            chatInput.focus();
-          }, 10);
-        }
-      }
-
-      function handleChatKey(e) {
-        if (e.key === "Enter") sendMessage();
-      }
-
-      function sendQuickMessage(text) {
-        chatInput.value = text;
-        sendMessage();
-      }
-
-      function sendMessage() {
-        const text = chatInput.value.trim();
-        if (!text) return;
-
-        // User Message
-        addMessage(text, "user");
-        chatInput.value = "";
-        
-        // Hide quick suggestions after first message
-        const suggestions = document.getElementById("quick-suggestions");
-        if (suggestions && suggestions.children.length > 0) {
-          suggestions.style.display = "none";
-        }
-        
-        showTypingIndicator();
-        setTimeout(
-          () => {
-            removeTypingIndicator();
-            const response = generateResponse(text);
-            addMessage(response.text, "bot", response.linkId);
-            
-            // Update suggestions based on context
-            updateQuickSuggestions(response);
-          },
-          600 + Math.random() * 500,
-        ); // Random delay 0.6s - 1.1s
-      }
-
-      function updateQuickSuggestions(lastResponse) {
-        const suggestions = document.getElementById("quick-suggestions");
-        if (!suggestions) return;
-        
-        // Show suggestions again with contextual options
-        suggestions.style.display = "flex";
-        
-        const contextualSuggestions = [
-          { text: "עוד שאלות על הנושא", query: lastResponse.linkId ? chatIndex.find(i => i.id === lastResponse.linkId)?.category : null },
-          { text: "חזרה לתפריט הראשי", query: null },
-        ];
-        
-        // Keep it simple - don't overwhelm
-        suggestions.innerHTML = `
-          <button onclick="sendQuickMessage('מה עוד אפשר לשאול?')" class="btn btn-xs btn-outline">מה עוד?</button>
-          <button onclick="sendQuickMessage('תודה')" class="btn btn-xs btn-outline">תודה</button>
-        `;
-      }
-
-      function addMessage(text, sender, linkId = null, saveToHistory = true) {
-        const div = document.createElement("div");
-        div.className = `chat ${sender === "user" ? "chat-end" : "chat-start"}`;
-
-        let contentHtml = text;
-        if (linkId) {
-          contentHtml += `<br><button class="btn btn-xs btn-outline mt-2 text-white border-white/70 hover:bg-white hover:text-primary" onclick="window.parent.showSection('${linkId}')">עבור למדריך <i class="fa-solid fa-arrow-left mr-1"></i></button>`;
-        }
-
-        div.innerHTML = `
-                <div class="chat-bubble ${sender === "user" ? "chat-bubble-secondary" : "chat-bubble-primary"}">
-                    ${contentHtml}
-                </div>
-            `;
-        chatMessages.appendChild(div);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-        
-        if (saveToHistory) {
-          saveChatHistory(text, sender, linkId);
-        }
-      }
-
-      function showTypingIndicator() {
-        const div = document.createElement("div");
-        div.id = "typing-indicator";
-        div.className = "chat chat-start";
-        div.innerHTML = `
-          <div class="chat-image avatar">
-            <div class="w-10 rounded-full bg-primary/10 p-2">
-              <img
-                src="./assets/logo.png"
-                alt="Bot"
-                onerror="this.src='https://cdn-icons-png.flaticon.com/512/4712/4712027.png'"
-              />
-            </div>
-          </div>
-          <div class="chat-bubble chat-bubble-primary opacity-70">
-            <div class="flex gap-1">
-              <span class="inline-block w-2 h-2 bg-white rounded-full animate-bounce" style="animation-delay: 0s"></span>
-              <span class="inline-block w-2 h-2 bg-white rounded-full animate-bounce" style="animation-delay: 0.2s"></span>
-              <span class="inline-block w-2 h-2 bg-white rounded-full animate-bounce" style="animation-delay: 0.4s"></span>
-            </div>
-          </div>
-        `;
-        chatMessages.appendChild(div);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-      }
-
-      function removeTypingIndicator() {
-        const el = document.getElementById("typing-indicator");
-        if (el) el.remove();
-      }
-
-      function generateResponse(input) {
-        const synonymMap = {
-          תקלה: ["שגיאה", "בעיה", "תקלות", "בעיות", "כשל", "נכשל"],
-          ניוד: ["לנייד", "ניודים", "העברה", "מעבר", "החלפה"],
-          חשבונית: ["חשבוניות", "חיוב", "תשלום", "חשבון"],
-          הפעלה: ["אקטיבציה", "להפעיל", "הפעלת", "הדלקה"],
-          סים: ["sim", "כרטיס", "esim", "סימים"],
-          הזמנה: ["הזמנות", "הצטרפות", "רכישה"],
-          חוזה: ["חוזים", "חתימה", "חתימות"],
-          פריפייד: ["prepaid", "טעינה", "הטענה"],
-          חול: ["חו\"ל", "נדידה", "נסיעה", "חבילה"],
-          מנוי: ["מנויים", "לקוח", "תיקייה"],
+        /**
+         * מילות קישור ומונחים מקושרים → מושג מרכזי (לחיזוק התאמה בין מדריכים)
+         * מפתח = צורה נורמלית; ערך = מערך ביטויים שממופים אליו
+         */
+        const LEXICON = {
+          ניוד: [
+            "ניוד",
+            "לנייד",
+            "העברת",
+            "העברה",
+            "מעבר",
+            "מספר",
+            "בין",
+            "מפעיל",
+            "מפעילים",
+            "port",
+            "porting",
+          ],
+          סים: ["סים", "sim", "סיםים", "כרטיס", "simcard"],
+          esim: ["esim", "e-sim", "איסים", "סים", "דיגיטלי"],
+          הפעלה: ["הפעלה", "אקטיבציה", "להפעיל", "מפעילים", "הפעלת", "הדלקה"],
+          תקלה: [
+            "תקלה",
+            "שגיאה",
+            "בעיה",
+            "כשל",
+            "לא",
+            "עובד",
+            "נתקע",
+            "תקוע",
+            "שגיאות",
+          ],
+          הזמנה: ["הזמנה", "הזמנות", "הצטרפות", "רכישה", "עסקה"],
+          חוזה: ["חוזה", "חוזים", "חתימה", "חתימות", "לחתום"],
+          חשבונית: ["חשבונית", "חשבוניות", "חיוב", "חשבון", "גבייה", "חוב"],
+          פריפייד: ["פריפייד", "prepaid", "טעינה", "הטענה", "מאזן"],
+          חוול: [
+            'חו"ל',
+            "חול",
+            "חו״ל",
+            "נדידה",
+            "נסיעה",
+            "חבילה",
+            "רואמינג",
+            "בחו",
+          ],
+          מנוי: ["מנוי", "מנויים", "לקוח", "מנוים"],
+          תיקייה: ["תיקייה", "תיקיית", "mind", "מיינד", "תיקיות"],
+          פניה: ["פניה", "פניות", "rlt", "ניהול", "פנייה", "טיפול"],
+          מדריך: ["מדריך", "מדריכים", "הוראות", "מסמך"],
+          זהב: ["זהב", "מספר", "מיוחד", "vip"],
+          אזור: ["אזור", "אישי", "פרטים", "עדכון"],
+          קוד: ["קוד", "אימות", "otp", "sms"],
+          מפעיל: ["מפעיל", "מפעילים", "חו", "בדיקה"],
         };
 
-        const lowerInput = input.toLowerCase();
-        
-        // Small Talk & Greetings - בדיקות מדויקות יותר
-        if (lowerInput.match(/^(היי|שלום|בוקר טוב|צהריים טובים|ערב טוב|אהלן|הלו|מה נשמע)\s*[?!.]?$/)) 
-          return { text: `שלום! 👋 אני העוזר החכם של מרכז המדריכים. אפשר לשאול אותי כל שאלה על התהליכים והמערכות שלנו.` };
-        if (lowerInput.match(/^(מה שלומך|מה קורה|איך אתה|מה המצב)\s*[?!.]?$/)) 
-          return { text: "שלומי מצוין! 😊 אני כאן כדי לעזור לך למצוא את המידע שאתה צריך." };
-        if (lowerInput.match(/^(תודה|תודה רבה|רבה|אחלה|מעולה|יפה|תודה רבה רבה)\s*[?!.]?$/)) 
-          return { text: "בכיף! 👍 שמח שיכולתי לעזור. אם יש עוד שאלות - אני פה!" };
-        if (lowerInput.match(/^(עזרה|מה אתה יכול|מה אפשר|מה תוכל)\s*[?!.]?$/)) 
-          return { text: "אני יכול לעזור לך למצוא מדריכים על: הזמנות, הפעלת סים, ניוד, חוזים, פריפייד, חבילות חו\"ל, אזור אישי, MIND, RLT ועוד. פשוט שאל!" };
+        function normalizeText(s) {
+          if (!s) return "";
+          return s
+            .toLowerCase()
+            .replace(/[\u200f\u200e]/g, "")
+            .replace(/"/g, '"')
+            .replace(/״/g, '"')
+            .replace(/'/g, "'")
+            .replace(/`/g, "'")
+            .replace(/\s+/g, " ")
+            .trim();
+        }
 
-        // Intent Detection - זיהוי כוונות
-        const intent = detectIntent(lowerInput);
-        
-        // Process input with synonyms
-        let processedInput = lowerInput;
-        for (const [key, synonyms] of Object.entries(synonymMap)) {
-          synonyms.forEach(syn => {
-            const regex = new RegExp(`\\b${syn}\\b`, "gi");
-            processedInput = processedInput.replace(regex, key);
+        function tokenize(norm) {
+          return norm
+            .split(/[^\u0590-\u05FFa-z0-9]+/i)
+            .map((t) => t.trim())
+            .filter((t) => t.length > 1 && !STOP.has(t));
+        }
+
+        function expandWithLexicon(norm) {
+          let out = " " + norm + " ";
+          Object.keys(LEXICON).forEach((key) => {
+            LEXICON[key].forEach((alias) => {
+              if (alias.length < 2) return;
+              const esc = alias.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+              try {
+                const re = new RegExp(
+                  "(^|[^א-תa-z0-9])" + esc + "([^א-תa-z0-9]|$)",
+                  "gi",
+                );
+                if (re.test(out)) out += " " + key + " ";
+              } catch (e) {}
+            });
           });
+          return normalizeText(out);
         }
 
-        // Extract keywords
-        const stopWords = ["איך", "אני", "יכול", "לעשות", "מה", "זה", "את", "של", "על", "עם", "אפשר", "צריך", "רוצה", "להיות", "יש", "אין", "כל", "או", "גם"];
-        const words = processedInput.split(/\s+/).filter(w => w.trim().length > 1 && !stopWords.includes(w));
-        
-        if (words.length === 0) 
-          return { text: "לא הבנתי את השאלה. אפשר לנסח אותה אחרת? לדוגמה: 'איך עושים ניוד?' או 'מה זה שגיאה 500?'" };
-
-        // Advanced Search with multiple strategies
-        const results = searchWithMultipleStrategies(words, lowerInput, intent);
-        
-        if (results.length === 0) {
-          return generateNoResultsResponse(lowerInput, words);
+        function escapeHtml(s) {
+          return String(s)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;");
         }
 
-        const bestMatch = results[0];
-        
-        // Generate contextual response
-        return generateContextualResponse(bestMatch, lowerInput, results);
-      }
-
-      function detectIntent(input) {
-        if (input.match(/(איך|כיצד|דרך|תהליך|שלבים)/)) return "how-to";
-        if (input.match(/(מה זה|מהו|הגדרה|הסבר|פירוש)/)) return "definition";
-        if (input.match(/(שגיאה|תקלה|בעיה|כשל|לא עובד|נכשל)/)) return "error";
-        if (input.match(/(איפה|היכן|מיקום|למצוא|לחפש)/)) return "location";
-        if (input.match(/(מתי|זמן|כמה זמן|משך)/)) return "timing";
-        if (input.match(/(למה|מדוע|סיבה|הסיבה)/)) return "reason";
-        return "general";
-      }
-
-      function searchWithMultipleStrategies(words, fullInput, intent) {
-        const results = [];
-        
-        chatIndex.forEach((item) => {
-          let score = 0;
-          let matchDetails = { exact: 0, partial: 0, context: 0 };
-          
-          // Strategy 1: Exact phrase matching
-          if (item.content.includes(fullInput)) {
-            score += 100;
-            matchDetails.exact += 1;
+        function readClarifySession() {
+          try {
+            const raw = sessionStorage.getItem(SESSION_KEY);
+            if (!raw) return null;
+            return JSON.parse(raw);
+          } catch (e) {
+            return null;
           }
-          
-          // Strategy 2: Title matching (highest priority)
-          words.forEach((word) => {
-            const titleLower = item.title.toLowerCase();
-            if (titleLower === word) {
-              score += 50;
-              matchDetails.exact += 1;
-            } else if (titleLower.includes(word)) {
-              score += 25;
-              matchDetails.partial += 1;
-            }
-          });
-          
-          // Strategy 3: Category matching
-          words.forEach((word) => {
-            const categoryLower = item.category.toLowerCase();
-            if (categoryLower.includes(word)) {
-              score += 15;
-              matchDetails.context += 1;
-            }
-          });
-          
-          // Strategy 4: Content matching with proximity bonus
-          words.forEach((word, idx) => {
-            if (item.content.includes(word)) {
-              score += 3;
-              // Bonus for words appearing close together
-              if (idx > 0 && item.content.includes(words[idx-1])) {
-                const pos1 = item.content.indexOf(words[idx-1]);
-                const pos2 = item.content.indexOf(word);
-                if (Math.abs(pos1 - pos2) < 50) score += 5;
-              }
-            }
-          });
-          
-          // Strategy 5: Fuzzy matching for typos
-          words.forEach((word) => {
-            if (word.length > 3) {
-              const fuzzyMatches = findFuzzyMatches(word, item.content);
-              score += fuzzyMatches * 2;
-            }
-          });
-          
-          // Strategy 6: Intent-based boosting
-          if (intent === "error" && item.title.includes("שגיאה")) score += 20;
-          if (intent === "how-to" && (item.title.includes("איך") || item.content.includes("שלב"))) score += 15;
-          
-          if (score > 0) {
-            results.push({ ...item, score, matchDetails });
-          }
-        });
-        
-        // Sort by score descending
-        return results.sort((a, b) => b.score - a.score);
-      }
-
-      function findFuzzyMatches(word, text) {
-        let matches = 0;
-        const words = text.split(/\s+/);
-        words.forEach(textWord => {
-          if (textWord.length > 2 && levenshteinDistance(word, textWord) <= 2) {
-            matches++;
-          }
-        });
-        return matches;
-      }
-
-      function levenshteinDistance(str1, str2) {
-        const matrix = [];
-        for (let i = 0; i <= str2.length; i++) {
-          matrix[i] = [i];
         }
-        for (let j = 0; j <= str1.length; j++) {
-          matrix[0][j] = j;
-        }
-        for (let i = 1; i <= str2.length; i++) {
-          for (let j = 1; j <= str1.length; j++) {
-            if (str2.charAt(i - 1) === str1.charAt(j - 1)) {
-              matrix[i][j] = matrix[i - 1][j - 1];
-            } else {
-              matrix[i][j] = Math.min(
-                matrix[i - 1][j - 1] + 1,
-                matrix[i][j - 1] + 1,
-                matrix[i - 1][j] + 1
+
+        function writeClarifySession(candidates) {
+          try {
+            if (!candidates || !candidates.length)
+              sessionStorage.removeItem(SESSION_KEY);
+            else
+              sessionStorage.setItem(
+                SESSION_KEY,
+                JSON.stringify({
+                  candidates: candidates.slice(0, 5),
+                  ts: Date.now(),
+                }),
               );
+          } catch (e) {}
+        }
+
+        function clearClarifySession() {
+          try {
+            sessionStorage.removeItem(SESSION_KEY);
+          } catch (e) {}
+        }
+
+        function tryResolveClarification(raw, session) {
+          if (!session || !session.candidates || !session.candidates.length)
+            return null;
+          const t = normalizeText(raw);
+          const n = t.replace(/\s/g, "");
+
+          const mNum = t.match(/^([1-5])$/);
+          if (mNum) {
+            const i = parseInt(mNum[1], 10) - 1;
+            if (session.candidates[i]) return session.candidates[i].id;
+          }
+
+          if (/ראשון|אחת|הראשונה|הראשון|^1$/.test(t))
+            return session.candidates[0].id;
+          if (/שני|שניה|השני|השנייה|^2$/.test(t))
+            return session.candidates[1] && session.candidates[1].id;
+          if (/שלישי|שלישית|^3$/.test(t))
+            return session.candidates[2] && session.candidates[2].id;
+
+          for (let i = 0; i < session.candidates.length; i++) {
+            const c = session.candidates[i];
+            const titleN = normalizeText(c.title);
+            if (titleN && (t.includes(titleN) || titleN.includes(t)))
+              return c.id;
+            const short = titleN.split(/\s+/).filter((w) => w.length > 3);
+            for (const w of short) {
+              if (t.includes(w)) return c.id;
             }
           }
+          return null;
         }
-        return matrix[str2.length][str1.length];
-      }
 
-      function generateContextualResponse(match, input, allResults) {
-        let responseText = "";
-        
-        // Extract relevant snippet from content
-        const snippet = extractRelevantSnippet(match.rawContent, input);
-        
-        if (match.score > 50) {
-          responseText = `מצאתי בדיוק את מה שחיפשת! 🎯<br><br>`;
-          responseText += `<strong>${match.title}</strong><br>`;
-          if (snippet) {
-            responseText += `<div class="text-sm opacity-90 mt-2 p-2 bg-white/20 rounded">${snippet}</div>`;
-          }
-        } else if (match.score > 20) {
-          responseText = `נראה שזה יכול לעזור לך:<br><br>`;
-          responseText += `<strong>${match.title}</strong> (${match.category})<br>`;
-          if (snippet) {
-            responseText += `<div class="text-sm opacity-90 mt-2">${snippet}</div>`;
-          }
-        } else {
-          responseText = `מצאתי משהו שאולי קשור:<br><br>`;
-          responseText += `<strong>${match.title}</strong>`;
+        function focusParentGuideSearch() {
+          try {
+            if (
+              parentWindow !== window &&
+              typeof parentWindow.showSection === "function"
+            ) {
+              parentWindow.showSection("home");
+            }
+            const inp = parentDoc.getElementById("homeSearchInput");
+            if (inp) {
+              inp.focus({ preventScroll: false });
+              inp.scrollIntoView({ behavior: "smooth", block: "center" });
+            }
+          } catch (e) {}
         }
-        
-        // Add alternative suggestions if available
-        if (allResults.length > 1 && match.score < 50) {
-          responseText += `<br><br><small class="opacity-75">💡 אולי גם מעניין: ${allResults[1].title}</small>`;
-        }
-        
-        return { text: responseText, linkId: match.id };
-      }
 
-      function extractRelevantSnippet(content, query) {
-        const words = query.toLowerCase().split(/\s+/).filter(w => w.length > 2);
-        const sentences = content.split(/[.!?]\s+/);
-        
-        let bestSentence = "";
-        let maxMatches = 0;
-        
-        sentences.forEach(sentence => {
-          const sentenceLower = sentence.toLowerCase();
-          let matches = 0;
-          words.forEach(word => {
-            if (sentenceLower.includes(word)) matches++;
+        window.focusParentGuideSearch = focusParentGuideSearch;
+
+        function openGuideInParent(id) {
+          try {
+            if (
+              parentWindow !== window &&
+              typeof parentWindow.showSection === "function"
+            ) {
+              parentWindow.showSection(id);
+            }
+          } catch (e) {}
+        }
+        window.openGuideInParent = openGuideInParent;
+
+        function initChatIndex() {
+          if (!parentWindow.guides) {
+            console.warn("Guides data not found in parent window.");
+            chatIndex = [];
+            return;
+          }
+          chatIndex = parentWindow.guides.map(function (guide) {
+            const el = parentDoc.getElementById(guide.id);
+            const rawText = el ? el.innerText : "";
+            const searchable = normalizeText(rawText.replace(/\s+/g, " "));
+            const tags = (guide.tags || []).map(function (x) {
+              return normalizeText(String(x));
+            });
+            const titleN = normalizeText(guide.title || "");
+            const catN = normalizeText(guide.category || "");
+            const tagBlob = tags.join(" ");
+            return {
+              id: guide.id,
+              title: guide.title,
+              category: guide.category,
+              tags: tags,
+              content: searchable,
+              rawContent: rawText,
+              titleN: titleN,
+              catN: catN,
+              tagBlob: tagBlob,
+            };
           });
-          if (matches > maxMatches && sentence.length > 20 && sentence.length < 200) {
-            maxMatches = matches;
-            bestSentence = sentence.trim();
-          }
-        });
-        
-        if (bestSentence && maxMatches > 0) {
-          return bestSentence.substring(0, 150) + (bestSentence.length > 150 ? "..." : "");
         }
-        return null;
-      }
 
-      function generateNoResultsResponse(input, words) {
-        // Try to suggest related topics
-        const suggestions = [];
-        const categories = [...new Set(chatIndex.map(item => item.category))];
-        
-        // Find categories that might be relevant
-        categories.forEach(cat => {
-          words.forEach(word => {
-            if (cat.toLowerCase().includes(word) && !suggestions.includes(cat)) {
-              suggestions.push(cat);
+        window.addEventListener("load", function () {
+          initChatIndex();
+          loadChatHistory();
+        });
+
+        function loadChatHistory() {
+          const history = localStorage.getItem("chatHistory");
+          if (!history) return;
+          try {
+            const messages = JSON.parse(history);
+            messages.slice(-6).forEach(function (msg) {
+              if (msg.sender === "user") addUserMessage(msg.text, false);
+              else
+                addBotMessageHtml(
+                  msg.html || msg.text,
+                  false,
+                  msg.linkId || null,
+                );
+            });
+          } catch (e) {}
+        }
+
+        function saveChatHistoryEntry(entry) {
+          try {
+            const history = localStorage.getItem("chatHistory");
+            const messages = history ? JSON.parse(history) : [];
+            messages.push(Object.assign({ timestamp: Date.now() }, entry));
+            localStorage.setItem(
+              "chatHistory",
+              JSON.stringify(messages.slice(-24)),
+            );
+          } catch (e) {}
+        }
+
+        function toggleChat() {
+          const iframe = parentDoc.getElementById("bot-iframe");
+          if (chatWindow.style.display === "flex") {
+            chatWindow.classList.remove("opacity-100", "scale-100");
+            chatWindow.classList.add("opacity-0", "scale-95");
+            setTimeout(function () {
+              chatWindow.style.display = "none";
+              if (iframe) {
+                iframe.style.width = "100px";
+                iframe.style.height = "100px";
+              }
+            }, 300);
+          } else {
+            initChatIndex();
+            if (iframe) {
+              iframe.style.width = "400px";
+              iframe.style.height = "620px";
+            }
+            chatWindow.style.display = "flex";
+            setTimeout(function () {
+              chatWindow.classList.remove("opacity-0", "scale-95");
+              chatWindow.classList.add("opacity-100", "scale-100");
+              chatInput.focus();
+            }, 10);
+          }
+        }
+        window.toggleChat = toggleChat;
+
+        function handleChatKey(e) {
+          if (e.key === "Enter") sendMessage();
+        }
+        window.handleChatKey = handleChatKey;
+
+        function sendQuickMessage(text) {
+          chatInput.value = text;
+          sendMessage();
+        }
+        window.sendQuickMessage = sendQuickMessage;
+
+        function sendMessage() {
+          const text = chatInput.value.trim();
+          if (!text) return;
+          addUserMessage(text, true);
+          chatInput.value = "";
+
+          const sug = document.getElementById("quick-suggestions");
+          if (sug && sug.children.length) sug.classList.add("hidden");
+
+          showTypingIndicator();
+          setTimeout(
+            function () {
+              removeTypingIndicator();
+              const resp = generateResponse(text);
+              addBotMessageHtml(resp.html, true, resp.primaryLinkId || null);
+              refreshFollowUpChips(resp);
+            },
+            450 + Math.random() * 400,
+          );
+        }
+        window.sendMessage = sendMessage;
+
+        function addUserMessage(text, save) {
+          const div = document.createElement("div");
+          div.className = "chat chat-end";
+          const bubble = document.createElement("div");
+          bubble.className = "chat-bubble chat-bubble-secondary";
+          bubble.textContent = text;
+          div.appendChild(bubble);
+          chatMessages.appendChild(div);
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+          if (save) saveChatHistoryEntry({ sender: "user", text: text });
+        }
+
+        function addBotMessageHtml(html, save, linkId) {
+          const div = document.createElement("div");
+          div.className = "chat chat-start";
+          const wrap = document.createElement("div");
+          wrap.className = "chat-bubble chat-bubble-primary text-start";
+          wrap.innerHTML = html;
+          div.appendChild(wrap);
+          chatMessages.appendChild(div);
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+          if (save)
+            saveChatHistoryEntry({
+              sender: "bot",
+              html: html,
+              linkId: linkId || null,
+            });
+        }
+
+        function refreshFollowUpChips(resp) {
+          const sug = document.getElementById("quick-suggestions");
+          if (!sug) return;
+          sug.classList.remove("hidden");
+          const chips = resp.followUps || [
+            { q: "תנסח מחדש בקצרה — על איזה מערכת מדובר?" },
+            { q: "תודה, זה עזר" },
+          ];
+          sug.innerHTML = chips
+            .map(function (c) {
+              return (
+                '<button type="button" class="btn btn-xs" data-bot-chip="' +
+                encodeURIComponent(c.q) +
+                '">' +
+                escapeHtml(c.label || c.q) +
+                "</button>"
+              );
+            })
+            .join("");
+        }
+
+        document
+          .getElementById("quick-suggestions")
+          .addEventListener("click", function (e) {
+            const btn = e.target.closest("[data-bot-chip]");
+            if (!btn) return;
+            e.preventDefault();
+            const enc = btn.getAttribute("data-bot-chip");
+            if (!enc) return;
+            try {
+              chatInput.value = decodeURIComponent(enc);
+              sendMessage();
+            } catch (err) {}
+          });
+
+        function showTypingIndicator() {
+          const div = document.createElement("div");
+          div.id = "typing-indicator";
+          div.className = "chat chat-start";
+          div.innerHTML =
+            '<div class="chat-bubble chat-bubble-primary opacity-70"><div class="flex gap-1">' +
+            '<span class="inline-block w-2 h-2 bg-white rounded-full animate-bounce"></span>' +
+            '<span class="inline-block w-2 h-2 bg-white rounded-full animate-bounce" style="animation-delay:0.15s"></span>' +
+            '<span class="inline-block w-2 h-2 bg-white rounded-full animate-bounce" style="animation-delay:0.3s"></span>' +
+            "</div></div>";
+          chatMessages.appendChild(div);
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function removeTypingIndicator() {
+          const el = document.getElementById("typing-indicator");
+          if (el) el.remove();
+        }
+
+        function detectIntent(t) {
+          if (/(איך|כיצד|דרך|תהליך|שלבים|בצע|לבצע)/.test(t)) return "how-to";
+          if (/(מה זה|מהי|מהו|הגדרה|הסבר)/.test(t)) return "definition";
+          if (/(שגיאה|תקלה|בעיה|כשל|לא עובד|נכשל|קרס|תקוע)/.test(t))
+            return "error";
+          if (/(איפה|היכן|באיזה|באיזו|מיקום|למצוא)/.test(t)) return "location";
+          if (/(למה|מדוע|סיבה)/.test(t)) return "reason";
+          return "general";
+        }
+
+        function levenshteinDistance(a, b) {
+          const matrix = [];
+          let i, j;
+          for (i = 0; i <= b.length; i++) matrix[i] = [i];
+          for (j = 0; j <= a.length; j++) matrix[0][j] = j;
+          for (i = 1; i <= b.length; i++) {
+            for (j = 1; j <= a.length; j++) {
+              matrix[i][j] =
+                b.charAt(i - 1) === a.charAt(j - 1)
+                  ? matrix[i - 1][j - 1]
+                  : Math.min(
+                      matrix[i - 1][j - 1] + 1,
+                      matrix[i][j - 1] + 1,
+                      matrix[i - 1][j] + 1,
+                    );
+            }
+          }
+          return matrix[b.length][a.length];
+        }
+
+        function scoreGuideItem(item, queryNorm, tokens, intent) {
+          let score = 0;
+          const content = item.content;
+          const titleN = item.titleN;
+          const catN = item.catN;
+
+          if (queryNorm.length > 4 && content.includes(queryNorm)) score += 120;
+
+          tokens.forEach(function (w) {
+            if (w.length < 2) return;
+            if (titleN === w) score += 70;
+            else if (titleN.indexOf(w) !== -1) score += 38;
+            if (catN.indexOf(w) !== -1) score += 22;
+            item.tags.forEach(function (tg) {
+              if (tg.indexOf(w) !== -1) score += 35;
+            });
+          });
+
+          const phrase = queryNorm.replace(/\s+/g, "");
+          if (
+            phrase.length > 5 &&
+            titleN.replace(/\s+/g, "").indexOf(phrase) !== -1
+          )
+            score += 55;
+
+          let contentHits = 0;
+          tokens.forEach(function (w) {
+            if (w.length < 3) return;
+            if (content.indexOf(w) !== -1) {
+              contentHits++;
+              score += Math.min(6, 2 + Math.floor(w.length / 4));
             }
           });
-        });
-        
-        let response = "לא מצאתי תוכן מדויק שמתאים לשאלה שלך. 🤔<br><br>";
-        
-        if (suggestions.length > 0) {
-          response += `אולי תרצה לחפש במדריכים של: <strong>${suggestions.join(", ")}</strong>?<br><br>`;
+          score += Math.min(40, contentHits * 3);
+
+          if (
+            intent === "error" &&
+            (titleN.indexOf("שגיא") !== -1 || content.indexOf("שגיא") !== -1)
+          )
+            score += 18;
+          if (
+            intent === "how-to" &&
+            (titleN.indexOf("איך") !== -1 || content.indexOf("שלב") !== -1)
+          )
+            score += 10;
+
+          tokens.forEach(function (w) {
+            if (w.length < 4) return;
+            const parts = content.split(/\s+/);
+            let c = 0;
+            for (let i = 0; i < parts.length && c < 4; i++) {
+              if (parts[i].length > 3 && levenshteinDistance(w, parts[i]) <= 1)
+                c++;
+            }
+            score += c * 3;
+          });
+
+          return score;
         }
-        
-        response += `💡 <strong>טיפים לחיפוש טוב יותר:</strong><br>`;
-        response += `• נסה מילים אחרות (למשל: "ניוד" במקום "העברת מספר")<br>`;
-        response += `• השתמש במילות מפתח ספציפיות<br>`;
-        response += `• שאל שאלה ישירה (למשל: "איך עושים הפעלת סים?")<br><br>`;
-        response += `אפשר גם להשתמש בחיפוש הראשי למעלה 🔍`;
-        
-        return { text: response };
-      }
+
+        function rankGuides(queryNorm, tokens, intent) {
+          const ranked = [];
+          chatIndex.forEach(function (item) {
+            const s = scoreGuideItem(item, queryNorm, tokens, intent);
+            if (s > 0) ranked.push({ item: item, score: s });
+          });
+          ranked.sort(function (a, b) {
+            return b.score - a.score;
+          });
+          return ranked;
+        }
+
+        function extractSnippet(raw, tokens) {
+          if (!raw) return "";
+          const sentences = raw.split(/[.\n!?]\s+/);
+          let best = "";
+          let bestScore = 0;
+          sentences.forEach(function (sent) {
+            const sn = normalizeText(sent);
+            if (sn.length < 25 || sn.length > 320) return;
+            let sc = 0;
+            tokens.forEach(function (w) {
+              if (w.length > 2 && sn.indexOf(w) !== -1) sc++;
+            });
+            if (sc > bestScore) {
+              bestScore = sc;
+              best = sent.trim();
+            }
+          });
+          if (!best) return "";
+          return best.length > 220 ? best.slice(0, 217) + "…" : best;
+        }
+
+        function buildGuideButton(id) {
+          const safe = escapeHtml(id).replace(/'/g, "\\'");
+          return (
+            '<button type="button" class="chat-action-btn" onclick="openGuideInParent(\'' +
+            safe +
+            '\')">פתיחת המדריך <i class="fa-solid fa-arrow-left mr-1"></i></button>'
+          );
+        }
+
+        function buildClarifyBlock(candidates) {
+          let h =
+            '<p class="mb-2">כדי לדייק — <strong>איזה מדריך הכי מתאים?</strong> (אפשר לכתוב מספר או חלק מהשם)</p><ol class="list-decimal list-inside space-y-2 text-sm opacity-95">';
+          candidates.forEach(function (c, idx) {
+            const sid = escapeHtml(c.id).replace(/'/g, "\\'");
+            h +=
+              '<li class="leading-snug">' +
+              escapeHtml(c.title) +
+              ' <span class="opacity-70">(' +
+              escapeHtml(c.category) +
+              ")</span> " +
+              '<button type="button" class="chat-action-btn chat-action-btn-sm" onclick="openGuideInParent(\'' +
+              sid +
+              "')\">פתח</button></li>";
+          });
+          h += "</ol>";
+          return h;
+        }
+
+        function generateResponse(rawInput) {
+          initChatIndex();
+          if (!chatIndex.length) {
+            return {
+              html: "לא הצלחתי לטעון את רשימת המדריכים מהעמוד הראשי. רענן את הדף ונסה שוב.",
+              followUps: [{ q: "איך מגיעים לדף הבית של המדריכים?" }],
+            };
+          }
+
+          const session = readClarifySession();
+          const resolved = tryResolveClarification(rawInput, session);
+          if (resolved) {
+            clearClarifySession();
+            const it = chatIndex.find(function (x) {
+              return x.id === resolved;
+            });
+            const title = it ? it.title : resolved;
+            return {
+              html:
+                "<p>מעולה — פותחים את <strong>" +
+                escapeHtml(title) +
+                "</strong> בעמוד הראשי.</p>" +
+                buildGuideButton(resolved),
+              primaryLinkId: resolved,
+              followUps: [
+                { label: "נושא נוסף", q: "יש לי שאלה על נושא אחר" },
+                { label: "תודה", q: "תודה" },
+              ],
+            };
+          }
+
+          const lower = normalizeText(rawInput);
+
+          if (
+            /^(היי|שלום|בוקר טוב|ערב טוב|אהלן|הי|הייי)\b/.test(lower) &&
+            lower.length < 40
+          ) {
+            return {
+              html: "<p>שלום! 😊 אני מנתח את כל המדריכים (כולל התוכן המלא) ומציע התאמה חכמה. תאר במילים שלך מה צריך — גם אם זה מעורפל.</p>",
+              followUps: [
+                { label: "ניוד", q: "אני צריך עזרה בניוד או בהעברת מנוי" },
+                { label: "RLT", q: "איך מנהלים פניה ב-RLT מההתחלה?" },
+              ],
+            };
+          }
+          if (/^תודה|תודה רבה|מעולה עזרת|סבבה תודה/.test(lower)) {
+            clearClarifySession();
+            return {
+              html: "<p>בשמחה! 💗 כשתרצה — אני כאן לעוד ניווט במדריכים.</p>",
+              followUps: [{ label: "שאלה חדשה", q: "יש לי שאלה נוספת" }],
+            };
+          }
+          if (
+            /מה את יכול|מה אתה יכול|במה תעזור|עזרה|מה המטרה/.test(lower) &&
+            lower.length < 80
+          ) {
+            return {
+              html: "<p>אני מזהה <strong>כוונות</strong> (איך / תקלה / איפה / מה זה), מרחיב <strong>מילות קישור</strong> (ניוד, סים, חשבונית…), סורק את <strong>כל תוכן המדריכים</strong> בעמוד, ומדרג את ההתאמות. כשהמצב לא חד — אשאל שאלת הבהרה ואציע כפתורים.</p>",
+              followUps: [
+                { q: "יש לי תקלה בהזמנה" },
+                { q: "איך מחפשים חוזה לפי מספר?" },
+              ],
+            };
+          }
+
+          const intent = detectIntent(lower);
+          const expanded = expandWithLexicon(lower);
+          const tokens = tokenize(expanded);
+          if (tokens.length === 0) {
+            return {
+              html: "<p>לא הצלחתי לחלץ מילות מפתח. נסה לכתוב משפט אחד עם <strong>המערכת</strong> (אתר / MIND / RLT) ועם <strong>הפעולה</strong> (למשל: ניוד, שגיאה, חשבונית).</p>",
+              followUps: [
+                { q: "תקלה ב-eSIM במנוי" },
+                { q: "איך סוגרים פניה ב-RLT" },
+              ],
+            };
+          }
+
+          const ranked = rankGuides(expanded, tokens, intent);
+          if (!ranked.length) {
+            clearClarifySession();
+            const cats = {};
+            chatIndex.forEach(function (x) {
+              cats[x.category] = true;
+            });
+            const catList = Object.keys(cats).slice(0, 8).join(" · ");
+            return {
+              html:
+                '<p>לא מצאתי מדריך שמתאים בבירור לניסוח הזה. אפשר לנסח אחרת או לבחור כיוון:</p><p class="text-sm opacity-90 mt-2">קטגוריות לדוגמה: ' +
+                escapeHtml(catList) +
+                "</p>",
+              followUps: [
+                { q: "אני עובד בעיקר עם MIND" },
+                { q: "אני עובד בעיקר עם אתר רמי לוי" },
+                { q: "אני עובד עם RLT" },
+              ],
+            };
+          }
+
+          const top = ranked[0];
+          const second = ranked[1];
+          const third = ranked[2];
+          const gap = second ? top.score - second.score : top.score;
+          const HIGH = 55;
+          const CLEAR_GAP = 12;
+
+          const snippet = extractSnippet(top.item.rawContent, tokens);
+          const snHtml = snippet
+            ? '<p class="text-sm chat-quote-snippet">„' +
+              escapeHtml(snippet) +
+              "”</p>"
+            : "";
+
+          if (top.score >= HIGH && gap >= CLEAR_GAP) {
+            clearClarifySession();
+            let h =
+              '<p>נשמע שהכי מתאים כרגע הוא:</p><p class="mt-1 font-bold text-base">' +
+              escapeHtml(top.item.title) +
+              '</p><p class="text-xs opacity-85 mt-1">' +
+              escapeHtml(top.item.category) +
+              "</p>";
+            h += snHtml;
+            h += buildGuideButton(top.item.id);
+            if (second && second.score > top.score * 0.55) {
+              h +=
+                '<p class="text-xs opacity-80 mt-3">עוד אפשרות קרובה: <strong>' +
+                escapeHtml(second.item.title) +
+                "</strong></p>";
+            }
+            return {
+              html: h,
+              primaryLinkId: top.item.id,
+              followUps: [
+                {
+                  label: "זה לא זה",
+                  q: "זה לא בדיוק מה שחיפשתי — יש עוד אפשרויות?",
+                },
+                { q: "תודה" },
+              ],
+            };
+          }
+
+          const pool = ranked.slice(0, 4).map(function (r) {
+            return {
+              id: r.item.id,
+              title: r.item.title,
+              category: r.item.category,
+              score: r.score,
+            };
+          });
+
+          clearClarifySession();
+          writeClarifySession(pool);
+
+          let h =
+            "<p>יש כמה מדריכים שיכולים להתאים — אשמח לכוון אותך. הנה ההתאמות הקרובות ביותר לפי מה שכתבת:</p>";
+          h += buildClarifyBlock(pool);
+          h +=
+            '<p class="text-xs opacity-85 mt-3">רמז: אפשר לענות <strong>1</strong>, <strong>2</strong>… או לכתוב חלק מהכותרת.</p>';
+
+          return {
+            html: h,
+            followUps: pool.slice(0, 3).map(function (c, i) {
+              return {
+                label:
+                  String(i + 1) +
+                  ". " +
+                  c.title.slice(0, 22) +
+                  (c.title.length > 22 ? "…" : ""),
+                q: String(i + 1),
+              };
+            }),
+          };
+        }
+      })();
     </script>
 
     <!-- Final transparent override - must be last -->
     <style>
-      html, body, html[data-theme], html[data-theme="light"], html[data-theme="dark"] {
+      html,
+      body,
+      html[data-theme],
+      html[data-theme="light"],
+      html[data-theme="dark"] {
         background: transparent !important;
         background-color: transparent !important;
       }
